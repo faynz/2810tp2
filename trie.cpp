@@ -12,14 +12,12 @@ Trie::Trie(){
  * }
  */
 
-
-// Gotta start checking if we have reached the end of the word ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ THIS IS THE CONDITION THAT DEFINES WETHER WE KEEP CALLING INSERT OR NOT
 // insert will take in the child's vector (children)
 void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 
 
 	// Gotta loop till I find the first nullptr and make it equal to whichchild!!!!**********
-	// Must be done everytime, if found its equal to i, if not found its equal to position of first null ptr in the vector
+	// Must be done everytime, if found its equal to i, if not found its equal to position of first null ptr in the vector(nodes.size() after I already pushed back)
 	int whichchild;
 
 	// Condition check (keep inserting or not)
@@ -31,10 +29,9 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 		cout << "Letter: " << word[index] << endl;
 
 		// (Has to be reset each time )
-		// i is used to iterate through children
 		bool found = false;
 
-		// This should include Case 1 (Vector is empty)
+
 		// #1: Compare node and string's letter
 		cout << "nodes size = " << nodes.size() << endl;
 		for(unsigned int i=0; i < nodes.size(); i++){
@@ -46,7 +43,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 		}
 
 
-		// #2: Node isn't found, created and push_back a new node
+		// #2: State existed or not?
 
 		cout << "found = " << found << endl;
 
@@ -64,11 +61,12 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 			/// continu insertion
 			++index;
 			// insert(word, index, nodes[nodes.size()]->children);
-			// cout << "found = false" << endl;
 
 		}
 
-		if(found == true){ // Node is found
+		if(found == true){
+
+			// continu insertion
 			++index;
 			// insert(word, index, nodes[whichchild]->children);
 		}
