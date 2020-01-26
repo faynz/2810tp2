@@ -18,48 +18,59 @@ Trie::Trie(){
 void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 
 
-        // i is used to iterate through children
-	bool found = false;
-	// If whichchild is equal to -1, we are not calling insert (double check)
 	// Gotta loop till I find the first nullptr and make it equal to whichchild!!!!**********
 	// Must be done everytime, if found its equal to i, if not found its equal to position of first null ptr in the vector
-	int whichchild = -1;
-
-	// Print tests
-	cout << "Index: " << index << endl;
-	cout << "Letter: " << word[index] << endl;
-	cout << "(1) whichchild: " << whichchild << endl;
-
-
+	int whichchild;
 
 	// Condition check (keep inserting or not)
 	while (index < word.length()){
 
+
+		// Print tests
+		cout << "Index: " << index << endl;
+		cout << "Letter: " << word[index] << endl;
+
+		// (Has to be reset each time )
+		// i is used to iterate through children
+		bool found = false;
+
 		// This should include Case 1 (Vector is empty)
 		// #1: Compare node and string's letter
+		cout << "nodes size = " << nodes.size() << endl;
 		for(unsigned int i=0; i < nodes.size(); i++){
-
 			if (word[index] == nodes[i]->letter){
 				int whichchild = i; // Indicates which child we are passing when insert is called
+				cout << "whichchild after being found = " << whichchild << endl;
 				found = true;
 			}
 		}
 
 
 		// #2: Node isn't found, created and push_back a new node
+
+		cout << "found = " << found << endl;
+
 		if(found == false) {
 
+			// Create new node
 			shared_ptr<state_t> ptr (new state_t());
 			ptr->letter = word[index];
 			ptr->nTerminals = 0;
 			ptr->isEndOfWord = false;
 
 			nodes.push_back(ptr);
+			cout << "Letter of new node: " << nodes[index]->letter << endl;
 
-		} else { // Node is found
+			/// continu insertion
 			++index;
-			cout << "(2) whichchild: " << whichchild << endl;
-			insert(word, index, nodes[whichchild]->children);
+			// insert(word, index, nodes[nodes.size()]->children);
+			// cout << "found = false" << endl;
+
+		}
+
+		if(found == true){ // Node is found
+			++index;
+			// insert(word, index, nodes[whichchild]->children);
 		}
 	}
 }
