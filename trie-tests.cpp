@@ -19,8 +19,8 @@ int main(){
 	Trie trie;
 	string word = "word";
 
-	trie.insert(word);
-
+	trie.insert(word, 0, trie.start);
+	//trie.print(trie.start);
 
 
 

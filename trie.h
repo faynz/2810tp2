@@ -43,13 +43,13 @@ class Trie {
 public:
         Trie();
 	void insert(string& word);
-        void insert(string& word, int index, shared_ptr<state_t> node);
+        void insert(string& word, int index, vector<shared_ptr<state_t>> node);
         void search(string);
-
+	void print(shared_ptr<state_t> node);
 	friend ostream& operator<<(ostream& os, const Trie& trie);
 
         // attributes
-        shared_ptr<state_t> start;
+        vector<shared_ptr<state_t>> start;
 
 };
 

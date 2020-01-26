@@ -1,78 +1,94 @@
 #include "trie.h"
 
 Trie::Trie(){
-        start = nullptr;
-        start->isEndOfWord = false;
-        start->nTerminals = 0;
 
+	for(unsigned int i = 0; i < start.size(); i++)
+		start[i] = nullptr;
 }
 
-void Trie::insert(string& word){
-        // insert(word, 0, start);
-	cout << "Hello" << endl;
-}
+/*
+ * void Trie::insert(string& word){
+ *         insert(word, 0, start);
+ * }
+ */
 
 
-void Trie::insert(string& word, int index, shared_ptr<state_t> node){
+// Gotta start checking if we have reached the end of the word ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ THIS IS THE CONDITION THAT DEFINES WETHER WE KEEP CALLING INSERT OR NOT
+// insert will take in the child's vector (children)
+void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 
 
-	cout << "H" << endl;
-	
         // i is used to iterate through children
-        // int i = 0;
-        // shared_ptr<state_t> current = node;
-        // bool found = false;
+	bool found = false;
+	// If whichchild is equal to -1, we are not calling insert (double check)
+	// Gotta loop till I find the first nullptr and make it equal to whichchild!!!!**********
+	// Must be done everytime, if found its equal to i, if not found its equal to position of first null ptr in the vector
+	int whichchild = -1;
 
-	// cout << current->children.size() << endl;
+	// Print tests
+	cout << "Index: " << index << endl;
+	cout << "Letter: " << word[index] << endl;
+	cout << "(1) whichchild: " << whichchild << endl;
 
-	/*
-        // If the vector contains a pointer.
-        if(current->children.size() != 0){
-                // While the pointer isnt null, check if it's character is equal to the selected character of the string
-                while(current->children[i] != nullptr){
 
-                        if(current->children[i]->letter == word[index]){
-                                found = true;
-                                break;
-                        } else {
 
-				++i;
-                        }
-                }
+	// Condition check (keep inserting or not)
+	while (index < word.length()){
 
-		if(found == true){
-                        ++index;
-                        current = current->children[i]; // What happens if I assign a new pointer to the shared ptr **** Something might not work here
-                        insert(word, index, current);
-                } else {
+		// This should include Case 1 (Vector is empty)
+		// #1: Compare node and string's letter
+		for(unsigned int i=0; i < nodes.size(); i++){
 
-                        // Missing the creation and push back of a new node
-                        shared_ptr<state_t> ptr (new state_t());
+			if (word[index] == nodes[i]->letter){
+				int whichchild = i; // Indicates which child we are passing when insert is called
+				found = true;
+			}
+		}
 
-                        // Assign
-                        ptr->letter = word[index];
-                        ptr->nTerminals = 0;
-                        ptr->isEndOfWord = false;
 
-                        current->children.push_back(ptr);
+		// #2: Node isn't found, created and push_back a new node
+		if(found == false) {
 
-                }
-        }*/
+			shared_ptr<state_t> ptr (new state_t());
+			ptr->letter = word[index];
+			ptr->nTerminals = 0;
+			ptr->isEndOfWord = false;
+
+			nodes.push_back(ptr);
+
+		} else { // Node is found
+			++index;
+			cout << "(2) whichchild: " << whichchild << endl;
+			insert(word, index, nodes[whichchild]->children);
+		}
+	}
 }
 
 
-// The length of the string hasnt been considered yet
+/*
+ * ostream& operator<<(ostream& os, const Trie& trie){
+ *
+ * 	state_t* current = trie.start;
+ *
+ *
+ *
+ * 	return ;
+ *
+ * }
+ */
 
 
-
-/* ostream& operator<<(ostream& os, const Trie& trie){
-
-	state_t* current = trie.start;
-
-
-
-	return ;
-
-}
-
-*/
+/*
+ * void Trie::print(shared_ptr<state_t> node){
+ *
+ * 	if(node != nullptr){
+ * 		cout << node->letter << endl;
+ * 		if(node->children.size() != 0){
+ * 			print(node->children[0]);
+ * 		}
+ * 	} else {
+ * 		cout << "End of word" << endl;
+ * 	}
+ *
+ * }
+ */
