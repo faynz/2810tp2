@@ -1,11 +1,7 @@
 #include "trie.h"
 
-#ifndef TRIE_H
-#define TRIE_H
-
-
 Trie::Trie(){
-        start->children = nullptr;
+        start = nullptr;
         start->isEndOfWord = false;
         start->nTerminals = 0;
 
@@ -28,8 +24,8 @@ void Trie::insert(string& word, int index, shared_ptr<state_t> node){
                 // While the pointer isnt null, check if it's character is equal to the selected character of the string
                 while(current->children[i] != nullptr){
 
-                        if(current->children[i]->letter == string[index]){
-                                found == true;
+                        if(current->children[i]->letter == word[index]){
+                                found = true;
                                 break;
                         } else {
 
@@ -47,7 +43,7 @@ void Trie::insert(string& word, int index, shared_ptr<state_t> node){
                         shared_ptr<state_t> ptr = new state_t;
 
                         // Assign
-                        ptr->letter = string[index];
+                        ptr->letter = word[index];
                         ptr->nTerminals = 0;
                         ptr->isEndOfWord = false;
 
@@ -60,7 +56,7 @@ void Trie::insert(string& word, int index, shared_ptr<state_t> node){
 
 
 
-ostream& operator<<(ostream& os, const Trie& trie){
+/* ostream& operator<<(ostream& os, const Trie& trie){
 
 	state_t* current = trie.start;
 
@@ -70,4 +66,4 @@ ostream& operator<<(ostream& os, const Trie& trie){
 
 }
 
-#endif
+*/

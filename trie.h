@@ -4,6 +4,8 @@
 // #include <cstdlib>
 #include "inventory.h"
 #include <string>
+#include <memory>
+#include <vector>
 using namespace std;
 
 /**
@@ -41,7 +43,7 @@ class Trie {
 public:
         Trie();
 	void insert(string& word);
-        void insert(string word, int index,  state_t* node);
+        void insert(string& word, int index, shared_ptr<state_t> node);
         void search(string);
 
 	friend ostream& operator<<(ostream& os, const Trie& trie);
