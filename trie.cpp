@@ -40,7 +40,7 @@ void Trie::insert(string& word, int index, shared_ptr<state_t> node){
                 } else {
 
                         // Missing the creation and push back of a new node
-                        shared_ptr<state_t> ptr = new state_t;
+                        shared_ptr<state_t> ptr (new state_t());
 
                         // Assign
                         ptr->letter = word[index];
