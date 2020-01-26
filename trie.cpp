@@ -8,17 +8,24 @@ Trie::Trie(){
 }
 
 void Trie::insert(string& word){
-        insert(word, 0, start);
+        // insert(word, 0, start);
+	cout << "Hello" << endl;
 }
 
 
 void Trie::insert(string& word, int index, shared_ptr<state_t> node){
 
-        // i is used to iterate through children
-        int i = 0;
-        shared_ptr<state_t> current = node;
-        bool found = false;
 
+	cout << "H" << endl;
+	
+        // i is used to iterate through children
+        // int i = 0;
+        // shared_ptr<state_t> current = node;
+        // bool found = false;
+
+	// cout << current->children.size() << endl;
+
+	/*
         // If the vector contains a pointer.
         if(current->children.size() != 0){
                 // While the pointer isnt null, check if it's character is equal to the selected character of the string
@@ -50,8 +57,10 @@ void Trie::insert(string& word, int index, shared_ptr<state_t> node){
                         current->children.push_back(ptr);
 
                 }
-        }
+        }*/
 }
+
+
 // The length of the string hasnt been considered yet
 
 
