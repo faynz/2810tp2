@@ -21,7 +21,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 	int whichchild;
 
 	// Condition check (keep inserting or not)
-	while (index < word.length()){
+	if (index < word.length()){
 
 
 		// Print tests
