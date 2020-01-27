@@ -56,13 +56,13 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 			ptr->isEndOfWord = false;
 
 			nodes.push_back(ptr);
-			// cout << "Letter of new node: " << nodes[index]->letter << endl;
+			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault.. 
 			cout << "Letter of new node: " << nodes[0]->letter << endl;
 
 			/// continu insertion
 			++index;
-			// insert(word, index, nodes[nodes.size()-1]->children); // This is where I'm at for now FIX
-			insert(word, index, nodes[0]->children); // This is where I'm at for now FIX
+			insert(word, index, nodes[nodes.size()-1]->children); // If nodes.size() = 2, we need to pass in the node at pos = 1
+			// insert(word, index, nodes[0]->children); // Testing
 
 		}
 
@@ -70,7 +70,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 
 			// continu insertion
 			++index;
-			// insert(word, index, nodes[whichchild]->children);
+			insert(word, index, nodes[whichchild]->children);
 		}
 	}
 }
