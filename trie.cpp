@@ -56,11 +56,13 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 			ptr->isEndOfWord = false;
 
 			nodes.push_back(ptr);
-			cout << "Letter of new node: " << nodes[index]->letter << endl;
+			// cout << "Letter of new node: " << nodes[index]->letter << endl;
+			cout << "Letter of new node: " << nodes[0]->letter << endl;
 
 			/// continu insertion
 			++index;
-			// insert(word, index, nodes[nodes.size()]->children);
+			// insert(word, index, nodes[nodes.size()-1]->children); // This is where I'm at for now FIX
+			insert(word, index, nodes[0]->children); // This is where I'm at for now FIX
 
 		}
 
