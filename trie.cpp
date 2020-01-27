@@ -33,8 +33,11 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 
 		// #1: Compare node and string's letter
 		cout << "nodes size = " << nodes.size() << endl;
+
+		// for(unsigned int i=0; i < nodes.size(); i++) -- Because of this condition it was never looping and thus, found was always false.
 		for(unsigned int i=0; i < nodes.size(); i++){
-			if (word[index] == nodes[i]->letter){
+			cout << "Looking for match" << endl;
+			if (word[index] == nodes[i]->letter){ // If nodes does not contain any node, this causes a segfault FIX
 				int whichchild = i; // Indicates which child we are passing when insert is called
 				cout << "whichchild after being found = " << whichchild << endl;
 				found = true;
