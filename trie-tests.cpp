@@ -17,11 +17,13 @@ int main(){
 	inventory_t item1;
 
 	Trie trie;
-	string word = "word";
+	string word = "word", wala = "wala";
 
-	trie.insert(word, 0, trie.start);
+	trie.insert(word);
 	//trie.print(trie.start);
 
+	cout << "Size of vector start after insertion of first word: " << trie.start.size() << endl;
+	trie.insert(wala);
 
 
 	// cout << trie;

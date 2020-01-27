@@ -6,11 +6,10 @@ Trie::Trie(){
 		start[i] = nullptr;
 }
 
-/*
- * void Trie::insert(string& word){
- *         insert(word, 0, start);
- * }
- */
+
+void Trie::insert(string& word){
+	insert(word, 0, start);
+}
 
 // insert will take in the child's vector (children)
 void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
@@ -56,7 +55,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 			ptr->isEndOfWord = false;
 
 			nodes.push_back(ptr);
-			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault.. 
+			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault..
 			cout << "Letter of new node: " << nodes[0]->letter << endl;
 
 			/// continu insertion
