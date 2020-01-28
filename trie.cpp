@@ -12,7 +12,7 @@ void Trie::insert(string& word){
 }
 
 // insert will take in the child's vector (children)
-void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
+void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 
 
 	// Gotta loop till I find the first nullptr and make it equal to whichchild!!!!**********
@@ -34,9 +34,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 		// #1: Compare node and string's letter
 		cout << "nodes size = " << nodes.size() << endl;
 
-		// for(unsigned int i=0; i < nodes.size(); i++) -- Because of this condition it was never looping and thus, found was always false.
 		for(unsigned int i=0; i < nodes.size(); i++){
-			cout << "Looking for match" << endl;
 			if (word[index] == nodes[i]->letter){ // If nodes does not contain any node, this causes a segfault FIX
 				int whichchild = i; // Indicates which child we are passing when insert is called
 				cout << "whichchild after being found = " << whichchild << endl;
@@ -58,13 +56,15 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>> nodes){
 			ptr->isEndOfWord = false;
 
 			nodes.push_back(ptr);
+
+
+			// FIX
 			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault..
 			cout << "Letter of new node: " << nodes[0]->letter << endl;
 
 			/// continu insertion
 			++index;
 			insert(word, index, nodes[nodes.size()-1]->children); // If nodes.size() = 2, we need to pass in the node at pos = 1
-			// insert(word, index, nodes[0]->children); // Testing
 
 		}
 
