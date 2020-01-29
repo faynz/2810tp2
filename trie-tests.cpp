@@ -14,19 +14,19 @@
 
 int main(){
 
-	inventory_t item1;
-
+	// INSERT TESTING ----------------------------------------------------------
 	Trie trie;
-	string word1 = "word", word2 = "wora", word3 = "wora";
+	string word1 = "boko", word2 = "baka", word3 = "bako";
 
 	trie.insert(word1);
 	cout << "========================================================" << endl;
 	trie.insert(word2);
 	cout << "========================================================" << endl;
-	trie.insert(word3);
+ 	trie.insert(word3);
+
+	// SEARCH TESTING ----------------------------------------------------------
 
 
-	// cout << trie;
 
         return 0;
 }

@@ -38,7 +38,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 		for(unsigned int i=0; i < nodes.size(); i++){
 			if (word[index] == nodes[i]->letter){ // If nodes does not contain any node, this causes a segfault FIX
 				whichchild = i; // Indicates which child we are passing when insert is called
-				cout << " Letter matched at index  = " << whichchild << " (Whichchild)" << endl;
+				cout << "In for loop, letter matched at index  = " << whichchild << " (Whichchild)" << endl;
 				found = true;
 			}
 		}
@@ -61,7 +61,7 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 
 			// FIX
 			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault..
-			cout << "Letter of new node: " << nodes[0]->letter << endl;
+			cout << "Entered false" << endl;
 			cout << endl;
 
 			/// continu insertion
@@ -71,6 +71,9 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 		}
 
 		if(found == true){
+
+			cout << "Entered true" << endl;
+			cout << endl;
 
 			// continu insertion
 			++index;
