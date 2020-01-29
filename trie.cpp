@@ -14,14 +14,11 @@ void Trie::insert(string& word){
 // insert will take in the child's vector (children)
 void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 
-
-	// Gotta loop till I find the first nullptr and make it equal to whichchild!!!!**********
-	// Must be done everytime, if found its equal to i, if not found its equal to position of first null ptr in the vector(nodes.size() after I already pushed back)
+	// Indicates which child we are passing when insert is called
 	int whichchild;
 
 	// Condition check (keep inserting or not)
 	if (index < word.length()){
-
 
 		// Print tests
 		cout << "Inserting word : " << word << endl;
@@ -31,18 +28,16 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 		// (Has to be reset each time )
 		bool found = false;
 
-
 		// #1: Compare node and string's letter
 		cout << "nodes size = " << nodes.size() << endl;
 
 		for(unsigned int i=0; i < nodes.size(); i++){
-			if (word[index] == nodes[i]->letter){ // If nodes does not contain any node, this causes a segfault FIX
-				whichchild = i; // Indicates which child we are passing when insert is called
+			if (word[index] == nodes[i]->letter){
+				whichchild = i;
 				cout << "In for loop, letter matched at index  = " << whichchild << " (Whichchild)" << endl;
 				found = true;
 			}
 		}
-
 
 		// #2: State existed or not?
 
@@ -58,22 +53,21 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 
 			nodes.push_back(ptr);
 
-
-			// FIX
-			// cout << "Letter of new node: " << nodes[index]->letter << endl; // Cant do this, segfault..
-			cout << "Entered false" << endl;
-			cout << endl;
+			// Test
+			// cout << "Entered false" << endl;
+			// cout << endl;
 
 			/// continu insertion
 			++index;
-			insert(word, index, nodes[nodes.size()-1]->children); // If nodes.size() = 2, we need to pass in the node at pos = 1
+			insert(word, index, nodes[nodes.size()-1]->children);
 
 		}
 
 		if(found == true){
 
-			cout << "Entered true" << endl;
-			cout << endl;
+			// Test
+			// cout << "Entered true" << endl;
+			// cout << endl;
 
 			// continu insertion
 			++index;
