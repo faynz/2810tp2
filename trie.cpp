@@ -21,41 +21,55 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 	if (index < word.length()){
 
 		// Print tests
-		cout << "Inserting word : " << word << endl;
 		cout << "word[index] =  " << index << endl;
-		cout << "Letter to be insert: " << word[index] << endl;
+		cout << "Letter to be inserted: " << word[index] << endl;
 
 		// (Has to be reset each time )
 		bool found = false;
 
 		// #1: Compare node and string's letter
-		cout << "nodes size = " << nodes.size() << endl;
+		//cout << "nodes size = " << nodes.size() << endl;
 
 		for(unsigned int i=0; i < nodes.size(); i++){
 			if (word[index] == nodes[i]->letter){
 				whichchild = i;
-				cout << "In for loop, letter matched at index  = " << whichchild << " (Whichchild)" << endl;
 				found = true;
 			}
 		}
 
-		// #2: State existed or not?
-
+		// Test
 		cout << "found = " << found << endl;
+		cout << endl;
 
+		// #2: State existed or not?
 		if(found == false) {
 
 			// Create new node
 			shared_ptr<state_t> ptr (new state_t());
 			ptr->letter = word[index];
-			ptr->nTerminals = 0;
-			ptr->isEndOfWord = false;
 
-			nodes.push_back(ptr);
+			// Mark last node as EndOfWord and set nTerminals
+			if((word.length()-1) == index){
+				ptr->isEndOfWord = true;
+				ptr->nTerminals = 1; // Hasn't been found yet so needs to be set (can't do ++nTerminals)
+			}else{
+				ptr->isEndOfWord = false; // PROBLEM HERE FIX
+				ptr->nTerminals = 0;
+			}
 
 			// Test
-			// cout << "Entered false" << endl;
-			// cout << endl;
+			cout << "Entered false" << endl;
+			cout << endl;
+
+			// Test: print node info
+			cout << "Letter: " << ptr->letter << endl;
+			cout << "isEndOfWord: " << ptr->isEndOfWord << endl;
+			cout << "nTerminals: " << ptr->nTerminals << endl;
+			cout << endl;
+
+			// Add node to children
+			nodes.push_back(ptr);
+
 
 			/// continu insertion
 			++index;
@@ -65,9 +79,21 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 
 		if(found == true){
 
+			// Mark last node as EndOfWord
+			if((word.length()-1) == index){
+				nodes[whichchild]->isEndOfWord = true;
+				++nodes[whichchild]->nTerminals;
+			}
+			
 			// Test
-			// cout << "Entered true" << endl;
-			// cout << endl;
+			cout << "Entered true" << endl;
+			cout << endl;
+
+			// Test: print node info
+			cout << "Letter: " << nodes[whichchild]->letter << endl;
+			cout << "isEndOfWord: " << nodes[whichchild]->isEndOfWord << endl;
+			cout << "nTerminals: " << nodes[whichchild]->nTerminals << endl;
+			cout << endl;
 
 			// continu insertion
 			++index;
@@ -76,6 +102,52 @@ void Trie::insert(string& word, int index, vector<shared_ptr<state_t>>& nodes){
 	}
 }
 
+
+// Will return true for a shorter word (need to put terminal states in insert and validate)
+bool Trie::search(string& word, vector<shared_ptr<state_t>>& nodes_vector){
+
+	for(int i = 0; i < word.length(); i++){
+
+		// Test
+		cout << "i = " << i << endl;
+		// Reset found
+		bool found = false;
+
+		for(unsigned int j = 0; j < nodes_vector.size(); j++){
+
+			// Test comparison ?
+			cout << "Vector letter : " << nodes_vector[j]->letter << endl;
+			cout << "String letter : " << word[i] << endl;
+
+			if(nodes_vector[j]->letter == word[i]){
+
+				// Test
+				cout << "Letter " << word[i] << " was found, continuing search" << endl;
+
+				// continu search
+				found = true;
+				nodes_vector = nodes_vector[j]->children;
+				break;
+			}
+
+		}
+
+		// If found is still false after looping through all nodes, return false;
+		if(found == false){
+
+			cout << "Returning false" << endl; // Test
+			return false;
+		}
+
+	}
+
+	cout << "Returning true" << endl; // Test
+
+	return true;
+}
+
+
+//
 
 /*
  * ostream& operator<<(ostream& os, const Trie& trie){

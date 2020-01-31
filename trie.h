@@ -44,7 +44,9 @@ public:
         Trie();
 	void insert(string& word);
         void insert(string& word, int index, vector<shared_ptr<state_t>>& node);
-        void search(string);
+
+	// Indicates if a word is contained in the trie
+	bool search(string& word, vector<shared_ptr<state_t>>& nodes_vector);
 	void print(shared_ptr<state_t> node);
 	friend ostream& operator<<(ostream& os, const Trie& trie);
 
